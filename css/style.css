@@ -1,0 +1,105 @@
+*{
+    padding:0;
+    margin:0;
+}
+html{
+    font-size:100px;
+}
+html,body{
+    width:100%;
+    height:100%;
+}
+.box{
+    position:relative;
+}
+.box img{
+    display: block;
+    width:100%;
+    position:absolute;
+}
+a{ 
+    text-decoration:none !important;
+    
+}
+.url{
+    display:block;
+    width:100%;
+    height:100%;
+    text-indent:-9999px
+    
+}
+
+/*设置按钮*/
+.userBtn{
+    width:2.5rem;
+    height:1rem;
+    /*background: red;*/
+    position:absolute;
+    top:6.5rem;
+    right:25%;
+    z-index:2;
+}
+.userBtn01{
+    width:4rem;
+    height:2.5rem;
+    /*background: red;*/
+    position:absolute;
+    top:4.5rem;
+    right:15%;
+    z-index:2;
+}
+.userBtnAll{
+    width:5rem;
+    height:7rem;
+    /*background: red;*/
+    position:absolute;
+    top:2rem;
+    right:10%;
+    z-index:2;
+}
+.userBtnNext{
+    width:1.5rem;
+    height:0.75rem;
+    /*background: red;*/
+    position:absolute;
+    top:6.1rem;
+    right:16%;
+    z-index:2;
+}
+
+.userBtn03{
+    width:1rem;
+    height:1rem;
+    /*background: red;*/
+    position:absolute;
+    top:1.5rem;
+    right:45%;
+    z-index:3;
+}
+.userBtn21{
+    width:1rem;
+    height:1rem;
+    /*background: red;*/
+    position:absolute;
+    top:8.5rem;
+    right:30%;
+    z-index:3;
+}
+.userBtn31{
+    width:0.5rem;
+    height:1rem;
+    /*background: red;*/
+    position:absolute;
+    top:6rem;
+    right:5%;
+    z-index:3;
+}
+.userBtn51{
+    width:2rem;
+    height:6rem;
+    /*background: red;*/
+    position:absolute;
+    top:3rem;
+    right:40%;
+    z-index:3;
+}

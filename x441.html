@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+        body{
+            margin:0;
+            padding:0;
+        }
+        .init,.game{
+            height:100%;
+            position:relative;
+        }
+        .init{
+            background-image:url(imgg/bg4.jpg);
+            background-size:100% 100%;
+        }
+        .game{
+            display:none;
+            background-image: url(imgg/bg44.jpg);
+            background-size:100% 100%;
+        }
+        .start{
+            position:absolute;
+            left:50%;
+            transform:translateX(-50%);
+            bottom:25%;
+            width:50%;
+            height:40px;
+            
+            border-radius: 20px;
+            text-align:center;
+            line-height:40px;
+            
+
+        }
+        .girl{
+            position:absolute;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="init">
+        <div class="start"></div>
+    </div>
+    <div class="game">
+        <img class="girl" src="img/girll.png"/>
+    </div>
+</body>
+<script src="font/zepto.min.js"></script>
+<script>
+    var bodyW = $("body").width();//获取body的宽度
+    var bodyH = $("body").height();//获取body的高度
+    var girlW = 129;//女孩宽
+    var girlH = 233;//女孩高
+    var smallW = 44;//果子宽
+    var smallH = 62;//果子高
+    var enemys =[];
+    var control = 0; //控制
+    //点击开始游戏，会把init隐藏，显示game的窗口
+    $(".start").on("click",function(){
+        $(".init").css("display","none");
+        $(".game").css("display","block");
+
+        //女孩居中
+    $(".girl").css("left",(bodyW-girlW)/2);
+    $(".girl").on("touchstart",function(e){
+        //首先获取点击时手指和图片位置的距离
+        var disX = e.targetTouches[0].pageX-$(this).offset().left;
+        var disY = e.targetTouches[0].pageY-$(this).offset().top;
+        $(".girl").on("touchmove",function(e){
+            //通过当前的手指的位置获取元素位置
+            var pLeft = e.targetTouches[0].pageX-disX;
+            var pTop = e.targetTouches[0].pageY-disY;
+            //控制不出左右边界
+            pLeft = pLeft<=0?0:pLeft;
+            pLeft = pLeft>=(bodyW-girlW)?(bodyW-girlW):pLeft;
+            //不出上下边界
+            pTop = pTop<=0?0:pTop;
+            pTop = pTop>=(bodyH-girlH)?(bodyH-girlH):pTop;
+            //改变元素位置
+            $(this).css({
+                left:pLeft,
+                top:pTop
+            })
+        })
+        //当手指移除取消绑定
+        $(".girl").on("touchend",function(){
+            $(".plane").off('touchstart','touchmove');
+        });
+    })
+    setInterval(function(){
+        control++;
+        //隔50
+        if(control%30 ==0) {
+            enemys.push(new Enemy("img/green.png",smallW,smallH,1,6));
+        }
+        for(var i=0;i<enemys.length;i++){
+            //移动
+            enemys[i].move();
+            //超出移除
+            if(enemys[i].$enemy.offset().top>bodyH){
+                //删除dom
+                enemys[i].$enemy.remove();
+                //删除数组
+                enemys.splice(i,1)
+            }
+        }
+
+        control = control>=500?0:control;
+    },30);
+    function Enemy(src,_w,_h,hp,speed){
+        this.src  =src;//图
+        this.w    =_w;//初始宽
+        this.h    =_h;//初始高
+        this.hp   =hp;//初始hp
+        this.speed=speed;//初始速度
+        this.$enemy=$("<img src='"+this.src+"'>");
+        this.$enemy.css({
+            position:"absolute",
+            left:~~(Math.random()*(bodyW-this.w)),
+            top:-this.h
+        });
+        $(".game").append(this.$enemy);
+        this.move = function(){
+            this.$enemy.css({
+                top:this.$enemy.offset().top+this.speed
+            })
+        }
+    }
+    })
+    
+</script>
+</html>
